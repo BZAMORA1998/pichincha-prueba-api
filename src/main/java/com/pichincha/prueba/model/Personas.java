@@ -30,7 +30,7 @@ public class Personas implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "secuencia_persona")
     private Integer secuenciaPersona;
 	
@@ -54,9 +54,6 @@ public class Personas implements Serializable {
     @Column(name = "segundo_apellido")
     private String segundoApellido;
 	
-    @Column(name = "fecha_nacimiento")
-    private Date fechaNacimiento;
-    
 	@Size(max=1)
 	@Column(name = "es_activo")
 	private String esActivo;
@@ -64,12 +61,9 @@ public class Personas implements Serializable {
 	@Column(name = "fecha_ingreso")
 	private Date fechaIngreso;
 	 
-	@Column(name = "fecha_actualizacion")
-	private Date fechaActualizacion;
+	@Column(name = "fecha_modificacion")
+	private Date fechaModificacion;
 	
-	@Size(max=50)
-	@Column(name = "correo")
-	private String email;
 	 
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "secuencia_tipo_identificacion", referencedColumnName = "secuencia_tipo_identificacion", insertable = true, updatable = true)
@@ -79,13 +73,6 @@ public class Personas implements Serializable {
 	@JoinColumn(name = "secuencia_genero", referencedColumnName = "secuencia_genero", insertable = true, updatable = true)
 	private Generos genero;
     
-    @Size(max=500)
-	@Column(name = "direccion")
-	private String direccion;
-    
-    @Size(max=10)
-	@Column(name = "telefono_movil")
-	private String telefonoMovil;
     
 }
 

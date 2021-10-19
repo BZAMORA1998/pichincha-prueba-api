@@ -3,6 +3,7 @@ package com.pichincha.prueba.dao;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 
@@ -40,5 +41,25 @@ public class PersonasDAO extends BaseDAO<Personas,Integer>{
 	@Override
 	public Optional<Personas> find(@NonNull Integer id) {
 		return super.find(id);
+	}
+	
+	/**
+	 * Consulta por numero de identificacion
+	 * 
+	 * @Author: Bryan Zamora
+	 * @Param numeroIdentificacion
+	 * @Return
+	 */
+	public Long consultarPorIdentificacion(String numeroIdentificacion) {
+		try {	
+			return em.createQuery(
+						"SELECT count(1) \n" +
+						"  FROM Personas pe \n" +
+						"  WHERE pe.numeroIdentificacion=:numeroIdentificacion ",Long.class)
+						.setParameter("numeroIdentificacion",numeroIdentificacion)
+						.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

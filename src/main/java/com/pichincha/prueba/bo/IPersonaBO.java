@@ -6,10 +6,10 @@ import com.pichincha.prueba.exceptions.BOException;
 public interface IPersonaBO {
 
 	/**
-	 * Crea una persona
+	 * Crea o actualiza una persona
 	 * @author Bryan Zamora
 	 * @param objPersonaDTO
 	 */
-	public void crearPersona(PersonaDTO objPersonaDTO) throws BOException;
+	public void crearOActualizaPersona(PersonaDTO objPersonaDTO) throws BOException;
 
 }
