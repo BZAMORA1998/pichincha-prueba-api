@@ -55,7 +55,7 @@ public class PersonasDAO extends BaseDAO<Personas,Integer>{
 			return em.createQuery(
 						"SELECT count(1) \n" +
 						"  FROM Personas pe \n" +
-						"  WHERE pe.numeroIdentificacion=:numeroIdentificacion ",Long.class)
+						"  WHERE upper(pe.numeroIdentificacion)=upper(:numeroIdentificacion) ",Long.class)
 						.setParameter("numeroIdentificacion",numeroIdentificacion)
 						.getSingleResult();
 		} catch (NoResultException e) {

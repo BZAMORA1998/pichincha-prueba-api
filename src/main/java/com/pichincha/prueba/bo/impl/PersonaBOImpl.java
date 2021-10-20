@@ -1,6 +1,8 @@
 package com.pichincha.prueba.bo.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -37,7 +39,7 @@ public class PersonaBOImpl implements IPersonaBO{
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class})
-	public void crearOActualizaPersona(PersonaDTO objPersonaDTO) throws BOException {
+	public Map<String, Object> crearOActualizaPersona(PersonaDTO objPersonaDTO) throws BOException {
 		
 		//Si la secuencia de la persona es null o vacio se procede a crear la persona 
 		//caso contrario se asume que es una actualizacion
@@ -187,6 +189,10 @@ public class PersonaBOImpl implements IPersonaBO{
 		}else {
 			objPersonasDAO.update(objPersona.get());
 		}
+		
+		Map<String, Object> mapRequest=new HashMap<String, Object>();
+		mapRequest.put("secuenciaCuenta", objPersona.get().getSecuenciaPersona());
+		return mapRequest;
 
 	}
 

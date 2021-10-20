@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -17,7 +15,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Entity implementation class for Entity: Cuentas
+ * Entity implementation class for Entity: TiposIdentificacion
  *
  */
 @Entity
@@ -25,19 +23,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "tbl_cuentas")
-public class Cuentas implements Serializable {
+@Table(name = "tbl_cuenta_x_personas")
+public class CuentaXPersonas implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "secuencia_cuenta")
-    private Integer secuenciaCuenta;
-	
-	@Size(max=100)
-	@Column(name = "nombre")
-    private String nombre;
+	@EmbeddedId
+	@EqualsAndHashCode.Include
+    private CuentaXPersonasCPK cuentaXPersonasCPK;
 	
 	@Column(name = "fecha_ingreso")
 	private Date fechaIngreso;
@@ -48,8 +41,4 @@ public class Cuentas implements Serializable {
 	@Size(max=1)
 	@Column(name = "es_activo")
     private String esActivo;
-
-	@Size(max=500)
-	@Column(name = "descripcion")
-	private String descripcion;
 }

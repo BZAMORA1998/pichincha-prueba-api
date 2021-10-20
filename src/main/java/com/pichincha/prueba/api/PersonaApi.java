@@ -56,12 +56,9 @@ public class PersonaApi {
 			) throws BOException {
 		
 		try {
-			
-			objIPersonaBO.crearOActualizaPersona(objPersonaDTO);
-
 			return new ResponseEntity<>(new ResponseOk(
 					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
-					null), HttpStatus.OK);
+					objIPersonaBO.crearOActualizaPersona(objPersonaDTO)), HttpStatus.OK);
 		} catch (BOException be) {
 			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
 			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());

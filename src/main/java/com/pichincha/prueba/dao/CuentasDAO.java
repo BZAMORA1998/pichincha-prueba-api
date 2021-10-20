@@ -78,4 +78,22 @@ public class CuentasDAO extends BaseDAO<Cuentas,Integer>{
 				return null;
 			}
 	}
+
+	/**
+	 * Consulta la cuenta por nombre
+	 * @param nombre
+	 * @return
+	 */
+	public Long consultarPorNombre(String nombre) {
+		try {	
+			return em.createQuery(
+						"SELECT count(1) \n" +
+						"  FROM Cuentas c \n" +
+						"  WHERE upper(c.nombre)=upper(:nombre) ",Long.class)
+						.setParameter("nombre",nombre)
+						.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }
