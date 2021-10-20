@@ -176,5 +176,25 @@ public class CuentaBOImpl implements ICuentaBO{
 		mapRequest.put("secuenciaCuenta", objCuentas.get().getSecuenciaCuenta());
 		return mapRequest;
 	}
+
+	@Override
+	public List<CuentasDTO> consultarCuentasPersona(Integer intSecuenciaPersona) throws BOException {
+		
+		//Valida que el primer nombre sea requerido
+		GenericUtil.validarCampoRequeridoBO(intSecuenciaPersona, "pru.campos.secuenciaPersona");
+		
+		//Busca la persona
+		Optional<Personas> objPersonas=objPersonasDAO.find(intSecuenciaPersona);
+		
+		//Valida que el tipo de identificacion exista
+		if(!objPersonas.isPresent()) 
+			throw new BOException("pru.warn.campoNoExiste", new Object[] { "pru.campos.secuenciaPersona"});
+		
+		//Valida que el tipo de identificacion este activo
+		if(!("S").equalsIgnoreCase(objPersonas.get().getEsActivo())) 
+			throw new BOException("pru.warn.campoInactivo", new Object[] { "pru.campos.secuenciaPersona"});
+						
+		return objCuentaXPersonasDAO.consultarCuentasPersona(intSecuenciaPersona);
+	}
 	
 }

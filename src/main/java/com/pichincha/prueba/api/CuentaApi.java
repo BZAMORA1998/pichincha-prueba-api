@@ -171,4 +171,29 @@ public class CuentaApi {
 		}
 	}
 	
+	/**
+	 * GET http://localhost:8080/cuenta/1
+	 * 
+	 * Consulta las cuentas quw tiene una persona
+	 * @param strLanguage
+	 * @param intSecuenciaPersona
+	 * @return
+	 * @throws BOException
+	 */
+	@RequestMapping(value="/{secuenciaPersona}",method = RequestMethod.GET)
+	public ResponseEntity<?> consultarCuentasPersona(
+			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage,
+			@PathVariable(	value = "secuenciaPersona", required = false) Integer intSecuenciaPersona
+			) throws BOException {
+		
+		try {
+			return new ResponseEntity<>(new ResponseOk(
+					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
+					objICuentaBO.consultarCuentasPersona(intSecuenciaPersona)), HttpStatus.OK);
+		} catch (BOException be) {
+			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
+			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());
+		}
+	}
+	
 }

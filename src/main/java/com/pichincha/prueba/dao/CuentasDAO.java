@@ -56,6 +56,7 @@ public class CuentasDAO extends BaseDAO<Cuentas,Integer>{
 				StringBuilder strJPQLBase = new StringBuilder();
 				strJPQLBase.append("select c.secuenciaCuenta as secuenciaCuenta, ");
 				strJPQLBase.append(" 	   c.nombre as nombre, ");
+				strJPQLBase.append(" 	   c.descripcion as descripcion, ");
 				strJPQLBase.append(" 	   c.esActivo as estado ");
 				strJPQLBase.append("from Cuentas c ");
 				
@@ -71,6 +72,7 @@ public class CuentasDAO extends BaseDAO<Cuentas,Integer>{
 						.map(tuple -> CuentasDTO.builder()
 						.secuenciaCuenta(tuple.get("secuenciaCuenta", Number.class).intValue())
 						.nombre(tuple.get("nombre", String.class))
+						.descripcion(tuple.get("descripcion", String.class))
 						.estado(tuple.get("estado")!=null && "S".equalsIgnoreCase(tuple.get("estado",String.class))?true:false)
 						.build())
 				.collect(Collectors.toList());

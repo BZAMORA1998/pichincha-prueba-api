@@ -50,4 +50,12 @@ public interface ICuentaBO {
 	 */
 	public Map<String,Object> actualizaCuenta(Integer intSecuenciaCuenta, CuentasDTO objCuentasDTO) throws BOException;
 
+	/**
+	 * Consulta las cuentas que tiene una persona
+	 * 
+	 * @param intSecuenciaPersona
+	 * @return
+	 */
+	public List<CuentasDTO> consultarCuentasPersona(Integer intSecuenciaPersona)throws BOException;
+
 }

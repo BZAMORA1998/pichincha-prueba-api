@@ -32,6 +32,33 @@ public class TransaccionApi {
 	private static final Logger logger = LogManager.getLogger(TransaccionApi.class.getName());
 	
 	
+	/**
+	 * http://localhost:8080/transaccion?secuenciaCuenta=1&secuenciaPersona=1
+	 * 
+	 * El api crea transacciones asociada a una cuenta y a una persona
+	 * 
+	 * JSONBODY
+//	 [
+//    {
+//        "descripcion":"AGUA, COLA Y JUGO",(requerido)
+//        "valorTotal":22.5 (requerido)
+//    },
+//    {
+//        "descripcion":"HELADO",
+//        "valorTotal":50
+//    }
+//	]
+	 
+	 * 5) Crea una o varias transacciones a una cuenta
+	 * 
+	 * @author Bryan Zamora
+	 * @param strLanguage
+	 * @param intSecuenciaPersona
+	 * @param intSecuenciaCuenta
+	 * @param lsTransaccionDTO
+	 * @return
+	 * @throws BOException
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> crearTransaccion(
 			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage, 

@@ -6,6 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
@@ -41,4 +44,12 @@ public class CuentaXPersonas implements Serializable {
 	@Size(max=1)
 	@Column(name = "es_activo")
     private String esActivo;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "secuencia_cuenta", referencedColumnName = "secuencia_cuenta", insertable = false, updatable = false)
+	private Cuentas cuentas;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "secuencia_persona", referencedColumnName = "secuencia_persona", insertable = false, updatable = false)
+	private Personas personas;
 }
