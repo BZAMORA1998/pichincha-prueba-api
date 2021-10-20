@@ -81,6 +81,18 @@ public class TransaccionApi {
 		}
 	}
 	
+	
+	/**
+	 * http://localhost:8080/transaccion/1?fechaFin=2021-10-19&fechaInicio=2021-10-19
+	 * 
+	 * Consulta las transacciones de una cuenta en un rango de fecha
+	 * @param strLanguage
+	 * @param strFechaInicio
+	 * @param strFechaFin
+	 * @param intSecuenciaCuenta
+	 * @return
+	 * @throws BOException
+	 */
 	@RequestMapping(value="/{secuenciaCuenta}",method = RequestMethod.GET)
 	public ResponseEntity<?> consultarTransacciones(
 			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage, 
