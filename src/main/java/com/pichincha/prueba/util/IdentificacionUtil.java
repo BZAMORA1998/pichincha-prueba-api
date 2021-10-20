@@ -6,7 +6,7 @@ import com.pichincha.prueba.enums.AlgoritmosIdentificacion;
  * Helper de validacion de numeros de identificaciones aplicando el respectivo
  * algoritmo de validacion.
  * 
- * @author Brian Torres
+ * @author Bryan Zamora
  *
  */
 public class IdentificacionUtil {
@@ -15,7 +15,7 @@ public class IdentificacionUtil {
 	 * Evalua si una identificacion es correcta aplicando el respectivo algoritmo de
 	 * validacion.
 	 * 
-	 * @author Brian Torres
+	 * @author Bryan Zamora
 	 * @param identificacion          Identificacion a validar.
 	 * @param algoritmoIdentificacion Tipo de algoritmo a validar.
 	 * @return
@@ -68,7 +68,7 @@ public class IdentificacionUtil {
 	/**
 	 * Validacion de Cedula de ciudadania de Ecuador
 	 *  - Se complementa Funcion validando que tenga 10 digitos
-	 * @author Brian Torres
+	 * @author Bryan Zamora
 	 * @param identificacion Identificacion a validar.
 	 * @return
 	 */
@@ -82,7 +82,7 @@ public class IdentificacionUtil {
 	/**
 	 * Validacion de Registro unico de contribuyente (RUC) de Ecuador.
 	 *  - Se complementa Funcion validando que tenga 13 digitos
-	 * @author Brian Torres
+	 * @author Bryan Zamora
 	 * @param identificacion Identificacion a validar.
 	 * @return
 	 */
@@ -96,7 +96,7 @@ public class IdentificacionUtil {
 	/**
 	 * Validacion basica de un pasaporte
 	 * 
-	 * @author Brian Torres
+	 * @author Bryan Zamora
 	 * @param identificacion
 	 * @return
 	 */

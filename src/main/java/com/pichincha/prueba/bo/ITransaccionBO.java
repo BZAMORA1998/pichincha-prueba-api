@@ -18,4 +18,23 @@ public interface ITransaccionBO {
 	public void crearTransaccion(Integer intSecuenciaPersona, Integer intSecuenciasCuenta,
 			List<TransaccionDTO> lsTransaccionDTO)throws BOException;
 
+	/**
+	 * Consulta las transacciones por cuenta
+	 * 
+	 * @author Bryan Zamora
+	 * @param strFechaInicio
+	 * @param strFechaFin
+	 * @param intSecuenciaCuenta
+	 */
+	public List<TransaccionDTO> consultarTransacciones(String strFechaInicio, String strFechaFin, Integer intSecuenciaCuenta)throws BOException;
+
+	/**
+	 * Elimina una transaccion existente
+	 * 
+	 * @author Bryan Zamora
+	 * @param intSecuenciaTransaccion
+	 * @return
+	 */
+	public void eliminarTransaccion(Integer intSecuenciaTransaccion)throws BOException;
+
 }
