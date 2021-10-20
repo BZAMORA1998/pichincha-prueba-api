@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pichincha.prueba.bo.ICuentaBO;
 import com.pichincha.prueba.bo.IPersonaBO;
 import com.pichincha.prueba.dto.PersonaDTO;
 import com.pichincha.prueba.dto.ResponseOk;
@@ -19,49 +21,40 @@ import com.pichincha.prueba.exceptions.CustomExceptionHandler;
 import com.pichincha.prueba.util.MensajesUtil;
 
 @RestController
-@RequestMapping("/persona")
-public class PersonaApi {
+@RequestMapping("/cuenta")
+public class CuentaApi {
 	
 	@Autowired
-	private IPersonaBO objIPersonaBO;
+	private ICuentaBO objICuentaBO;
 	
 	@SuppressWarnings("unused")
-	private static final Logger logger = LogManager.getLogger(PersonaApi.class.getName());
+	private static final Logger logger = LogManager.getLogger(CuentaApi.class.getName());
 	
+
 	/**
-	 * Crear y actualizar personas
+	 * http://localhost:8080/cuenta?estado=todos
+	 * 
+	 * El api recibe el parametro estado requerido los valores pueden ser : 
+	 * "ACTIVO", "INACTIVO", "TODOS"
+	 * 
+	 * 2) Recuperar todas las cuentas existentes
+	 * @author Bryan Zamora
 	 * @param strLanguage
 	 * @param objPersonaDTO
 	 * @return
 	 * @throws BOException
 	 */
 	
-	/*PUT http://localhost:8080/persona
-	 JSON BODY
-	  {
-	    "secuenciaPersona":2,  --Solo se envia si se va actualizar
-	    "primerNombre":"BRYAN",
-	    "segundoNombre":"STEVEN",--opcional
-	    "primerApellido":"ZAMORA",
-	    "segundoApellido":"LITARDO",--opcional
-	    "secuenciaTipoIdentificacion":1,
-	    "numeroIdentificacion":"0928914464",
-	    "secuenciaGenero":1,
-	    "esActivo":true --solo se envia si se va actualizar
-	}*/
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<?> crearOActualizaPersona(
-			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage, 
-			@RequestBody PersonaDTO objPersonaDTO
-			) throws BOException {
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> consultarCuentas(
+			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage,
+			@RequestParam(value = "estado", required = false) String strEstado) throws BOException {
 		
 		try {
-			
-			objIPersonaBO.crearOActualizaPersona(objPersonaDTO);
-
 			return new ResponseEntity<>(new ResponseOk(
 					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
-					null), HttpStatus.OK);
+					objICuentaBO.consultarCuentas(strEstado)), HttpStatus.OK);
 		} catch (BOException be) {
 			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
 			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());
