@@ -38,4 +38,16 @@ public interface ICuentaBO {
 	 */
 	public Map<String,Object> crearCuenta(CuentasDTO objCuentasDTO) throws BOException;
 
+	/**
+	 * 
+	 * Actualiza la cuenta
+	 * 
+	 * @author Bryan Zamora
+	 * @param intSecuenciaCuenta
+	 * @param objCuentasDTO
+	 * @return
+	 * @throws BOException 
+	 */
+	public Map<String,Object> actualizaCuenta(Integer intSecuenciaCuenta, CuentasDTO objCuentasDTO) throws BOException;
+
 }

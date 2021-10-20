@@ -134,4 +134,41 @@ public class CuentaApi {
 			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());
 		}
 	}
+	
+	/**
+	 * PUT http://localhost:8080/cuenta/1
+	 * JSON BODY
+	//{
+	//    "nombre":"CUENTA 1",(requerido)
+	//    "descripcion":"CUENTA 1",(requerido)
+	//    "estado":true (requerido)
+	//}
+	 * 
+	 * El api puede actualizar una cuenta
+	 * 
+	 * 2)Actualizar información de la cuenta (un atributo y/o todos los atributos)
+	 * @author Bryan Zamora
+	 * @param strLanguage
+	 * @param objPersonaDTO
+	 * @return
+	 * @throws BOException
+	 */
+	
+	
+	@RequestMapping(value="/{secuenciaCuenta}",method = RequestMethod.PUT)
+	public ResponseEntity<?> actualizaCuenta(
+			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage,
+			@PathVariable(	value = "secuenciaCuenta", required = false) Integer intSecuenciaCuenta, 
+			@RequestBody CuentasDTO objCuentasDTO) throws BOException {
+		
+		try {
+			return new ResponseEntity<>(new ResponseOk(
+					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
+					objICuentaBO.actualizaCuenta(intSecuenciaCuenta,objCuentasDTO)), HttpStatus.OK);
+		} catch (BOException be) {
+			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
+			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());
+		}
+	}
+	
 }

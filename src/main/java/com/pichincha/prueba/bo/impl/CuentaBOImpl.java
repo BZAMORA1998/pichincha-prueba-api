@@ -137,5 +137,44 @@ public class CuentaBOImpl implements ICuentaBO{
 		mapRequest.put("secuenciaCuenta", objCuentas.getSecuenciaCuenta());
 		return mapRequest;
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class})
+	public Map<String, Object> actualizaCuenta(Integer intSecuenciaCuenta, CuentasDTO objCuentasDTO) throws BOException {
+		
+		//Valida que el secuenciaCuenta sea requerido
+		GenericUtil.validarCampoRequeridoBO(intSecuenciaCuenta, "pru.campos.secuenciaCuenta");
+		//Valida que el nombree sea requerido
+		GenericUtil.validarCampoRequeridoBO(objCuentasDTO.getNombre(), "pru.campos.nombre");
+		//Valida que la descripcion sea requerido
+		GenericUtil.validarCampoRequeridoBO(objCuentasDTO.getDescripcion(), "pru.campos.descripcion");
+		//Valida que la estado sea requerido
+		GenericUtil.validarCampoRequeridoBO(objCuentasDTO.getEstado(), "pru.campos.estado");
+		
+		Optional<Cuentas> objCuentas=objCuentasDAO.find(intSecuenciaCuenta);
+		
+		//Valida que la cuenta exista
+		if(!objCuentas.isPresent()) 
+			throw new BOException("pru.warn.campoNoExiste", new Object[] { "pru.campos.secuenciaCuenta"});
+		
+		if(!objCuentas.get().getNombre().toUpperCase().equalsIgnoreCase(objCuentasDTO.getNombre().toUpperCase())) {
+			
+			Long lonCountCuentas=objCuentasDAO.consultarPorNombre(objCuentasDTO.getNombre());
+			
+			if(lonCountCuentas.intValue()>0)
+				throw new BOException("pru.warn.cuentaYaExisteConEseNombre");
+			
+		}
+		
+		objCuentas.get().setNombre(objCuentasDTO.getNombre());
+		objCuentas.get().setDescripcion(objCuentasDTO.getDescripcion());
+		objCuentas.get().setEsActivo(objCuentasDTO.getEstado()?"S":"N");
+		objCuentas.get().setFechaIngreso(new Date());
+		objCuentasDAO.persist(objCuentas.get());
+		
+		Map<String, Object> mapRequest=new HashMap<String, Object>();
+		mapRequest.put("secuenciaCuenta", objCuentas.get().getSecuenciaCuenta());
+		return mapRequest;
+	}
 	
 }
