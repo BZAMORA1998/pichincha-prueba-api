@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * Clase que permite manejar excepciones en toda la aplicación, no solo en un controlador individual.
  * Puede considerarlo como un interceptor de excepciones generadas por métodos anotados 
  * con RequestMapping o uno de los accesos directos
- * 
- * @author Raúl Yugcha
  *
  */
 @ControllerAdvice
