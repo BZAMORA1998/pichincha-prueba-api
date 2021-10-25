@@ -1,14 +1,18 @@
 package com.pichincha.prueba.dao;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.persistence.Tuple;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Service;
 
+import com.pichincha.prueba.dto.CuentasDTO;
 import com.pichincha.prueba.model.Personas;
 
 import lombok.NonNull;
@@ -57,6 +61,26 @@ public class PersonasDAO extends BaseDAO<Personas,Integer>{
 						"  FROM Personas pe \n" +
 						"  WHERE upper(pe.numeroIdentificacion)=upper(:numeroIdentificacion) ",Long.class)
 						.setParameter("numeroIdentificacion",numeroIdentificacion)
+						.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+
+	
+	/**
+	 * @author Bryan Zamora
+	 * Busca la persona por la cedula
+	 * @param strCedula
+	 * @return
+	 */
+	public Personas findByCedula(String strCedula) {
+		try {	
+			return em.createQuery(
+						"SELECT p \n" +
+						"  FROM Personas p \n" +
+						"  WHERE upper(p.numeroIdentificacion)=upper(:cedula)",Personas.class)
+						.setParameter("cedula",strCedula)
 						.getSingleResult();
 		} catch (NoResultException e) {
 			return null;

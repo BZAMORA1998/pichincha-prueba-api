@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pichincha.prueba.bo.IPersonaBO;
@@ -59,6 +60,23 @@ public class PersonaApi {
 			return new ResponseEntity<>(new ResponseOk(
 					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
 					objIPersonaBO.crearOActualizaPersona(objPersonaDTO)), HttpStatus.OK);
+		} catch (BOException be) {
+			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
+			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> consultarDatosPersonas(
+			@RequestHeader(	value = "Accept-Language", 	required = false) String strLanguage, 
+			@RequestParam(	value = "numeroIdentificacion", 	required = false) String strNumeroIdentificacion
+			) throws BOException {
+		
+		try {
+			return new ResponseEntity<>(new ResponseOk(
+					MensajesUtil.getMensaje("pru.response.ok", MensajesUtil.validateSupportedLocale(strLanguage)),
+					objIPersonaBO.consultarDatosPersonas(strNumeroIdentificacion))
+					, HttpStatus.OK);
 		} catch (BOException be) {
 			logger.error(" ERROR => " + be.getTranslatedMessage(strLanguage));
 			throw new CustomExceptionHandler(be.getTranslatedMessage(strLanguage), be.getData());

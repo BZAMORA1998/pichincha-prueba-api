@@ -14,7 +14,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Service;
 
-import com.pichincha.prueba.dto.CuentasDTO;
 import com.pichincha.prueba.dto.TransaccionDTO;
 import com.pichincha.prueba.enums.FormatoFecha;
 import com.pichincha.prueba.model.Transacciones;

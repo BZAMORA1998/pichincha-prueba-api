@@ -196,4 +196,30 @@ public class PersonaBOImpl implements IPersonaBO{
 
 	}
 
+
+	@Override
+	public PersonaDTO consultarDatosPersonas(String strNumeroIdentificacion) throws BOException {
+		
+		// Valida que la cedula sea obligatorio
+		GenericUtil.validarCampoRequeridoBO(strNumeroIdentificacion, "pru.campos.numeroIdentificacion");
+		
+		//Busca la persona por el numero de cedula
+		Personas objPersona=objPersonasDAO.findByCedula(strNumeroIdentificacion);
+		
+		//Valida que exista la persona
+		if(ObjectUtils.isEmpty(objPersona)) 
+			throw new BOException("pru.warn.personaNoExiste", new Object[] {strNumeroIdentificacion});
+		
+		//Valida que este activo la persona
+		if(!("S").equalsIgnoreCase(objPersona.getEsActivo())) 
+			throw new BOException("pru.warn.personaInactiva", new Object[] {strNumeroIdentificacion});
+		
+		PersonaDTO objPersonaDTO=new PersonaDTO();
+		objPersonaDTO.setNumeroIdentificacion(strNumeroIdentificacion);
+		objPersonaDTO.setPrimerNombre(objPersona.getPrimerNombre());
+		objPersonaDTO.setPrimerApellido(objPersona.getPrimerApellido());
+		
+		return objPersonaDTO;
+	}
+
 }

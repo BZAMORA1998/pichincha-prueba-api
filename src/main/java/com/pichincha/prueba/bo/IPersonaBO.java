@@ -15,4 +15,15 @@ public interface IPersonaBO {
 	 */
 	public Map<String, Object> crearOActualizaPersona(PersonaDTO objPersonaDTO) throws BOException;
 
+	/**
+	 * Retonara los datos de la persona por su numero de cedula
+	 * 
+	 * @author Bryan Zamora
+	 * 
+	 * @param strNumeroIdentificacion
+	 * @return
+	 */
+	public PersonaDTO consultarDatosPersonas(String strNumeroIdentificacion) throws BOException;
+
+
 }
